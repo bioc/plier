@@ -5,7 +5,7 @@
   where <- match(paste("package:", pkg, sep=""), search());
 
   cacheMetaData(as.environment(where));
-  cat("PLIER V 0.02                                                 \n");
+  cat("PLIER V 0.03                                                 \n");
   cat("      See: http://www.affymetrix com for the algorithm       \n");
   cat("      For details on the R port:                             \n");
   cat("      http://bioinformatics.picr.man.ac.uk                   \n");

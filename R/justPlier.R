@@ -1,5 +1,5 @@
 "justPlier" <-
-function(eset=eset,replicate=1:length(eset),get.affinities=FALSE,normalize=T,norm.type="together",augmentation=0.1,defaultaffinity=1.0,defaultconcentration=1.0,attenuation=0.005,seaconvergence=0.000001,seaiteration=3000,gmcutoff=0.15,probepenalty=0.001,concpenalty=0.000001,usemm=TRUE,usemodel=FALSE,fitaffinity=T,plierconvergence=0.000001,plieriteration=3000,dropmax=3.0,lambdalimit=0.01,optimization=0) {
+function(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normalize=T,norm.type="together",augmentation=0.1,defaultaffinity=1.0,defaultconcentration=1.0,attenuation=0.005,seaconvergence=0.000001,seaiteration=3000,gmcutoff=0.15,probepenalty=0.001,concpenalty=0.000001,usemm=TRUE,usemodel=FALSE,fitaffinity=T,plierconvergence=0.000001,plieriteration=3000,dropmax=3.0,lambdalimit=0.01,optimization=0) {
   if(normalize) {
     cat("Quantile normalizing...");
     normalize.AffyBatch.quantiles(eset,norm.type);
