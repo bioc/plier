@@ -248,8 +248,8 @@ extern "C" {
  
     /* Create a double** array for pm and mm pointing into the pm and mm vectors for the underlying plier function */
     
-    double **pm_ptr = new (double *)[*num_exp];
-    double **mm_ptr = new (double *)[*num_exp];
+    double **pm_ptr = new double *[*num_exp];
+    double **mm_ptr = new double *[*num_exp];
 
 
     /* run through the probenames array to identify each probeset one
