@@ -18,7 +18,7 @@ function(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normalize
 
   num_probe <- length(pns)
 
-  r <- .C("an_experiment",as.logical(TRUE),as.double(augmentation), as.double(gmcutoff), as.double(probepenalty), as.double(concpenalty), as.double(defaultaffinity), as.double(defaultconcentration), as.double(attenuation), as.double(seaconvergence), as.integer(seaiteration), as.double(plierconvergence), as.integer(plieriteration), as.logical(usemm), as.logical(usemodel), as.logical(fitaffinity), as.double(dropmax), as.double(lambdalimit), as.integer(optimization), as.integer(num_exp), as.integer(num_probe), as.integer(replicate), pms, mms, as.character(pns), concentration=double(num_exp * length(unique(pns))), affinity=double(num_exp * num_probe), error.code=integer(1),PACKAGE="plier")
+  r <- .C("an_experiment",as.logical(TRUE),as.double(augmentation), as.double(gmcutoff), as.double(probepenalty), as.double(concpenalty), as.double(defaultaffinity), as.double(defaultconcentration), as.double(attenuation), as.double(seaconvergence), as.integer(seaiteration), as.double(plierconvergence), as.integer(plieriteration), as.logical(usemm), as.logical(usemodel), as.logical(fitaffinity), as.double(dropmax), as.double(lambdalimit), as.integer(optimization), as.integer(num_exp), as.integer(num_probe), as.integer(replicate), pms, mms, as.character(pns), concentration=double(num_exp * length(unique(pns))), affinity=double(num_probe), error.code=integer(1),PACKAGE="plier")
 
   x <- log2(t(matrix(r$concentration,nrow=num_exp)))
   colnames(x) <- sampleNames(eset)
@@ -30,9 +30,8 @@ function(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normalize
              description = eset@description, 
              notes       = eset@notes);
   if(get.affinities) {
-    a <-  t(matrix(r$affinity,nrow=num_exp))
-    colnames(a) <- sampleNames(eset)
-    rownames(a) <- probeNames(eset)
+    a <-  (r$affinity)
+    names(a) <- probeNames(eset)
     res@description@preprocessing$affinity=a;
   }
   return(res)
