@@ -37,7 +37,7 @@
 #include "error.h"
 
 #define BUF_LEN	1024
-#define MAX_PROBESET_SIZE	256
+#define MAX_PROBESET_SIZE 256
 
 /*
  * a plier wrapper function to use the iaffyplier interfaces
@@ -250,8 +250,6 @@ extern "C" {
     
     double **pm_ptr = new double *[*num_exp];
     double **mm_ptr = new double *[*num_exp];
-
-
     /* run through the probenames array to identify each probeset one
        by one. As we do that, fill up pms and mms and count the number
        of probes in the probeset so far. Also stitch together the
@@ -291,13 +289,14 @@ extern "C" {
 	  mms[k + j * MAX_PROBESET_SIZE] = mm[i + j * *num_probes];
 	}
         k++; /* get ready for the next probes, unless... */
+        if(k > MAX_PROBESET_SIZE) fprintf(stderr,"Error in running plier: MAX_PROBESET_SIZE exceeded %d\n",k);
       }
       else {	
         /* onto a new probeset */
         
 
         /* so get the expression calls for the last one */
-        do_one_probeset_internal(sp, *num_exp, k, replicate, pm_ptr, mm_ptr, &concentration[current * *num_exp], &affinity[current * *num_exp], error_code);
+        do_one_probeset_internal(sp, *num_exp, k, replicate, pm_ptr, mm_ptr, &concentration[current * *num_exp], &affinity[start], error_code);
  
         /* and copy over the zero'th probeset into the temporary data structures */ 
 	for(j = 0; j < *num_exp; j++) {
@@ -310,11 +309,12 @@ extern "C" {
 	start = i;  /* remember the start point of this probeset */
         /* comfort dots ... */
 	if(current % 1000 == 0) fprintf(stderr,".",probenames[i]);
+        if(k > MAX_PROBESET_SIZE) fprintf(stderr,"Error in running plier: MAX_PROBESET_SIZE exceeded %d\n",k);
       }
     }
 
     /* Mop up the last probeset left as we fall out of the loop */
-    do_one_probeset_internal(sp, *num_exp, k, replicate, pm_ptr, mm_ptr, &concentration[current * *num_exp], &affinity[current * *num_exp], error_code);
+    do_one_probeset_internal(sp, *num_exp, k, replicate, pm_ptr, mm_ptr, &concentration[current * *num_exp], &affinity[start], error_code);
 
     if (*error_code != 0)
       {
