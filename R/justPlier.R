@@ -5,17 +5,34 @@ function(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normalize
     eset <- normalize.AffyBatch.quantiles(eset,norm.type);
     cat("Done.\n");
   }
+  else {
+    warning("##### normalise=FALSE: No normalization will be performed in plier");
+  }
   pns       <- probeNames(eset)
   num_exp   <- length(sampleNames(eset))
-
+  o <- order(pns)
+  pns <- pns[o]
   if(missing(replicate)) { replicate <- 1:num_exp }
   else { if(!is.numeric(replicate)) { stop("Parameter 'replicate' must be a vector of integers") } }
   if(length(replicate)!=num_exp) { stop("Parameter 'replicate' should be the same length as the number of samples in 'eset'") }
+  pms <- as.double(pm(eset)[o,])
+  mms <- mm(eset)
+
+  if(!usemm) { 
+    cat("usemm=FALSE: setting mms to 1.0\n")
+    mms <- rep(1.0,length(pms))
+  }
+
+  else { if(dim(mms)[1] == length(o)) {
+      mms <- as.double(mms[o,])
+    }	
   
-  pms <- as.double(pm(eset))
-  mms <- as.double(mm(eset))
-
-
+    else {
+      cat("Warning: mms only contained dim",dim(mms),"mm probes!\n")
+      cat("Creating dummy mms..\n");
+      mms <- rep(1.0,length(pms))
+    }
+  }
   num_probe <- length(pns)
 
   r <- .C("an_experiment",as.logical(TRUE),as.double(augmentation), as.double(gmcutoff), as.double(probepenalty), as.double(concpenalty), as.double(defaultaffinity), as.double(defaultconcentration), as.double(attenuation), as.double(seaconvergence), as.integer(seaiteration), as.double(plierconvergence), as.integer(plieriteration), as.logical(usemm), as.logical(usemodel), as.logical(fitaffinity), as.double(dropmax), as.double(lambdalimit), as.integer(optimization), as.integer(num_exp), as.integer(num_probe), as.integer(replicate), pms, mms, as.character(pns), concentration=double(num_exp * length(unique(pns))), affinity=double(num_probe), error.code=integer(1),PACKAGE="plier")
@@ -36,7 +53,6 @@ function(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normalize
   }
   return(res)
 }
-
 
 .testoneprobeset <- function() {
 # here are the default test parameters
