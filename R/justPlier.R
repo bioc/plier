@@ -40,12 +40,11 @@ function(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normalize
   x <- log2(t(matrix(r$concentration,nrow=num_exp)))
   colnames(x) <- sampleNames(eset)
   rownames(x) <- geneNames(eset)
-  res <- new("exprSet", 	
+  res <- new("ExpressionSet", 	
              exprs       = x,
-             phenoData   = eset@phenoData,
-             annotation  = eset@annotation, 
-             description = eset@description, 
-             notes       = eset@notes);
+             phenoData   = phenoData(eset),
+             annotation  = annotation(eset), 
+             experimentData = experimentData(eset));
   if(get.affinities) {
     a <-  (r$affinity)
     names(a) <- probeNames(eset)
