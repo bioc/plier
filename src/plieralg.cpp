@@ -27,7 +27,7 @@ Free Software Foundation, Inc.,
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 
-#include <malloc.h>
+#include <stdlib.h>
 #include <memory>
 #include <new>
 #include <math.h>
