@@ -156,7 +156,7 @@ extern "C" {
       mm_ptr[i] = &mm[*num_probes * i];
     }
 
-    long    *rpct; /* the API expects a long array that it wants to delete itself (replicate). We have an int array that R owns so we need to create the long one here, but let the API handle the clean up. Which is nice. */
+    long    *rpct = new long [*num_exp]; /* the API expects a long array that it wants to delete itself (replicate). We have an int array that R owns so we need to create the long one here, but let the API handle the clean up. Which is nice. */
 
     for(int tmpidx=0;tmpidx < *num_exp;tmpidx++) {
       rpct[tmpidx] = (long) replicate[tmpidx];
@@ -191,6 +191,7 @@ extern "C" {
       }
     delete pm_ptr;  
     delete mm_ptr;
+    delete rpct;
   }
 
 
@@ -338,7 +339,7 @@ extern "C" {
         current ++; /* next result */
 	start = i;  /* remember the start point of this probeset */
         /* comfort dots ... */
-	if(current % 1000 == 0) fprintf(stderr,".",probenames[i]);
+	if(current % 1000 == 0) fprintf(stderr,".");
         if(k > MAX_PROBESET_SIZE) fprintf(stderr,"Error in running plier: MAX_PROBESET_SIZE exceeded %d\n",k);
       }
     }
