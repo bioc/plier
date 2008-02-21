@@ -11,7 +11,7 @@ justPlier(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normaliz
 \arguments{
   \item{eset}{ An AffyBatch object containing the raw data }
   \item{replicate}{ A factor containing the replicate structure to use for grouping samples }
-  \item{get.affinities}{ If TRUE, then return affinities in the preprocessing slot of the exprSet object }
+  \item{get.affinities}{ If TRUE, then return affinities in the description@preprocessing slot of the ExpressionSet object }
   \item{normalize}{ If TRUE then apply quantile normalization to the probes before generating expression calls }
   \item{norm.type}{ Can be 'separate', 'pmonly', 'mmonly' or 'together' }
   \item{augmentation}{ Model parameter }
