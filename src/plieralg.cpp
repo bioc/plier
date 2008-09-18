@@ -28,6 +28,7 @@ Free Software Foundation, Inc.,
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include <memory>
 #include <new>
 #include <math.h>
