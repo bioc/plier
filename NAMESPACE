@@ -1,0 +1,11 @@
+useDynLib(plier)
+
+import(methods)
+
+importMethodsFrom(affy, mm, pm, probeNames)
+importFrom(affy, normalize.AffyBatch.quantiles, ReadAffy)
+
+importMethodsFrom(Biobase, annotation, experimentData, geneNames,
+                  phenoData, sampleNames)
+
+export(justPlier)
