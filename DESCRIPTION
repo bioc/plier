@@ -1,6 +1,6 @@
 Package: plier
 Title: Implements the Affymetrix PLIER algorithm
-Version: 1.20.0
+Version: 1.20.1
 Author: Affymetrix Inc., Crispin J Miller, PICR
 Description: The PLIER (Probe Logarithmic Error Intensity Estimate)
         method produces an improved signal by accounting for
