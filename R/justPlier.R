@@ -39,7 +39,7 @@ function(eset=ReadAffy(),replicate=1:length(eset),get.affinities=FALSE,normalize
 
   x <- log2(t(matrix(r$concentration,nrow=num_exp)))
   colnames(x) <- sampleNames(eset)
-  rownames(x) <- geneNames(eset)
+  rownames(x) <- featureNames(eset)
   res <- new("ExpressionSet", 	
              exprs       = x,
              phenoData   = phenoData(eset),

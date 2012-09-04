@@ -5,7 +5,7 @@ import(methods)
 importMethodsFrom(affy, mm, pm, probeNames)
 importFrom(affy, normalize.AffyBatch.quantiles, ReadAffy)
 
-importMethodsFrom(Biobase, annotation, experimentData, geneNames,
+importMethodsFrom(Biobase, annotation, experimentData, featureNames,
                   phenoData, sampleNames)
 
 export(justPlier)
